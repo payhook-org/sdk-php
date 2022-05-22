@@ -1,0 +1,22 @@
+{
+  "name": "payhook/sdk",
+  "description": "Payhook PHP SDK library",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Payhook\\Sdk\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Davyd Kohut",
+      "email": "expexes@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "guzzlehttp/guzzle": "^7.4",
+    "ext-json": "*"
+  }
+}
