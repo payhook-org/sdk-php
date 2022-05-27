@@ -6,6 +6,11 @@ Payhook Software Development Kit for PHP.
 
 ## Installation
 
+Requirements:
+
+- PHP 7.4 or higher
+- ext-gmp
+
 ```shell
 composer require payhook/sdk
 ```
@@ -20,7 +25,7 @@ $payhook = new Payhook('your_api_key');
 $payhook->createPayment([
     'title' => 'Test payment',
     'currency' => 'USD',
-    'amount' => $payhook->makeAmount(123), // alternatively you can set is as 123 * 1e9
+    'amount' => $payhook->toNanos(12.34), // alternatively you can set it as 12.43 * 1e9
 ]);
 ```
 
@@ -41,6 +46,16 @@ Delete payment by id.
 #### `isWebhookValid(string $id, string $event, array $data, string $signature): bool`
 
 Check whether webhook is not corrupted.
+
+### Additional functions
+
+#### `toNanos(float $amount): string`
+
+Convert number to nanos.
+
+#### `fromNanos(string $nanos): float`
+
+Convert nanos to number.
 
 ## Licence
 

@@ -64,9 +64,19 @@ class Payhook
         ]);
     }
 
-    public function makeAmount(float $amount): int
+    public function toNanos(float $amount): string
     {
         return $amount * 1e9;
+    }
+
+    public function fromNanos(string $nanos): float
+    {
+        $gmp = gmp_init($nanos);
+
+        $left = gmp_div($gmp, 1e9);
+        $right = gmp_mod($gmp, 1e9);
+
+        return (float)"{$left}.{$right}";
     }
 
     public function isWebhookValid(string $id, string $event, array $data, string $signature): bool
