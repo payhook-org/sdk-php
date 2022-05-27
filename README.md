@@ -9,7 +9,6 @@ Payhook Software Development Kit for PHP.
 Requirements:
 
 - PHP 7.4 or higher
-- ext-gmp
 
 ```shell
 composer require payhook/sdk
