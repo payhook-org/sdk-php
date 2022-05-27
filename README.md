@@ -25,7 +25,7 @@ $payhook = new Payhook('your_api_key');
 $payhook->createPayment([
     'title' => 'Test payment',
     'currency' => 'USD',
-    'amount' => $payhook->toNanos(12.34), // alternatively you can set it as 12.43 * 1e9
+    'amount' => Payhook::moneyToNanos('12.34'),
 ]);
 ```
 
@@ -49,13 +49,13 @@ Check whether webhook is not corrupted.
 
 ### Additional functions
 
-#### `toNanos(float $amount): string`
+#### `Payhook::moneyToNanos(string $money): string`
 
-Convert number to nanos.
+Convert money to nanos.
 
-#### `fromNanos(string $nanos): float`
+#### `Payhook::nanosToMoney(string $nanos): string`
 
-Convert nanos to number.
+Convert nanos to money.
 
 ## Licence
 

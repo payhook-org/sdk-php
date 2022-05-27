@@ -64,19 +64,65 @@ class Payhook
         ]);
     }
 
-    public function toNanos(float $amount): string
+    /**
+     * Converts money value to nanos.
+     *
+     * Eg: 100.43 -> 1004300000
+     *
+     * @param string $money
+     * @return string
+     */
+    public static function moneyToNanos(string $money): string
     {
-        return $amount * 1e9;
+        // 1,431 -> 1.431
+        $money = str_replace(',', '.', $money);
+
+        // [0] => 1
+        // [1] => 431
+        $moneyParts = explode('.', $money);
+
+        // 1
+        $int = $moneyParts[0];
+
+        // 431
+        $dec = substr($moneyParts[1] ?? '0', 0, 9);
+
+        // 1 431 000 000
+        return "{$int}{$dec}" . str_repeat('0', max(9 - strlen($dec), 0));
     }
 
-    public function fromNanos(string $nanos): float
+    /**
+     * Convert nanos value to money.
+     *
+     * Eg: 1004300000 -> 100.43
+     *
+     * @param string $nanos
+     * @return string
+     */
+    public static function nanosToMoney(string $nanos): string
     {
-        $gmp = gmp_init($nanos);
+        $nanos = ltrim($nanos, '0');
 
-        $left = gmp_div($gmp, 1e9);
-        $right = gmp_mod($gmp, 1e9);
+        $dec = substr($nanos, strlen($nanos) - 9);
+        if (strlen($dec) < 9) {
+            $dec = str_repeat('0', 9 - strlen($dec)) . $dec;
+        }
+        
+        $int = substr($nanos, 0, -strlen($dec));
 
-        return (float)"{$left}.{$right}";
+        if (empty($int)) {
+            $int = '0';
+        }
+
+        $dec = rtrim($dec, '0');
+
+        $result = $int;
+
+        if (!empty($dec)) {
+            $result = $int . "." . $dec;
+        }
+
+        return $result;
     }
 
     public function isWebhookValid(string $id, string $event, array $data, string $signature): bool
