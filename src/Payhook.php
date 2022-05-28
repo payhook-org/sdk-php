@@ -105,7 +105,7 @@ class Payhook
     {
         $nanos = ltrim($nanos, '0');
 
-        $dec = substr($nanos, strlen($nanos) - 9);
+        $dec = substr($nanos, max(strlen($nanos) - 9, 0));
         if (strlen($dec) < 9) {
             $dec = str_repeat('0', 9 - strlen($dec)) . $dec;
         }
