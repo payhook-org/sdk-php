@@ -131,7 +131,7 @@ class Payhook
     {
         $localSignature = $this->generateSignature($id, $event, $data);
 
-        return hash_equals($localSignature, $signature);
+        return $localSignature === $signature;
     }
 
     public function generateSignature(string $id, string $event, array $data): string
