@@ -37,6 +37,14 @@ class NanosTest extends TestCase
         $this->assertEquals("10500000000", $nanos);
     }
 
+    public function testSimple3FloatMoneyToNanos(): void
+    {
+        $money = "0.01";
+        $nanos = Payhook::moneyToNanos($money);
+
+        $this->assertEquals("10000000", $nanos);
+    }
+
     public function testComplexFloatMoneyToNanos(): void
     {
         $money = "94938984938985353498.4324823402304902394023";

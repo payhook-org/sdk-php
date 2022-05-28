@@ -88,7 +88,9 @@ class Payhook
         $dec = substr($moneyParts[1] ?? '0', 0, 9);
 
         // 1 431 000 000
-        return "{$int}{$dec}" . str_repeat('0', max(9 - strlen($dec), 0));
+        $result = "{$int}{$dec}" . str_repeat('0', max(9 - strlen($dec), 0));
+
+        return ltrim($result, '0');
     }
 
     /**
