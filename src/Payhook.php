@@ -21,13 +21,13 @@ class Payhook
         $this->options = array_merge($this->options, $options);
 
         $this->client = new Client([
-            'base_uri' => "{$this->options['url']}/{$this->options['version']}",
+            'base_uri' => "{$this->options['url']}/{$this->options['version']}/",
         ]);
     }
 
     public function invoke(string $method, array $params = [])
     {
-        $response = $this->client->post("/invoke/{$method}", [
+        $response = $this->client->post("invoke/{$method}", [
             'json' => $params,
             'headers' => [
                 'X-Payhook-Api-Key' => $this->apiKey,
@@ -107,7 +107,7 @@ class Payhook
         if (strlen($dec) < 9) {
             $dec = str_repeat('0', 9 - strlen($dec)) . $dec;
         }
-        
+
         $int = substr($nanos, 0, -strlen($dec));
 
         if (empty($int)) {
