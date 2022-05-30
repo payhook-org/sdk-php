@@ -127,18 +127,16 @@ class Payhook
         return $result;
     }
 
-    public function isWebhookValid(string $id, string $event, array $data, string $signature): bool
+    public function isWebhookValid(string $id, string $event, string $signature): bool
     {
-        $localSignature = $this->generateSignature($id, $event, $data);
+        $localSignature = $this->generateSignature($id, $event);
 
         return $localSignature === $signature;
     }
 
-    public function generateSignature(string $id, string $event, array $data): string
+    public function generateSignature(string $id, string $event): string
     {
-        $dataJson = json_encode($data, JSON_UNESCAPED_UNICODE);
-
-        $signatureString = "id={$id}\nevent={$event}\ndata={$dataJson}";
+        $signatureString = "id={$id}\nevent={$event}";
 
         return hash_hmac('sha256', $signatureString, $this->apiKey);
     }

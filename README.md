@@ -42,9 +42,13 @@ Get payment by id.
 
 Delete payment by id.
 
-#### `isWebhookValid(string $id, string $event, array $data, string $signature): bool`
+#### `isWebhookValid(string $id, string $event, string $signature): bool`
 
 Check whether webhook is not corrupted.
+
+#### `generateSignature(string $id, string $event): string`
+
+Generate webhook signature.
 
 ### Additional functions
 
